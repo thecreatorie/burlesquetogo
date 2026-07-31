@@ -1,0 +1,153 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/Button.astro';
+import {
+  SITE_URL,
+  SMS_HREF,
+  SMS_NUMBER_DISPLAY,
+  PHONE_DISPLAY,
+} from '../lib/site';
+
+// NOTE: the original /faq page contained only theme-demo placeholder text
+// (lorem ipsum about makeup/manicure). This FAQ was rebuilt from real copy
+// found elsewhere on the site (pricing, booking, performance details).
+// See _migration/rebuild-log.md.
+const faqs = [
+  {
+    q: 'How much does a burlesque performance cost?',
+    a: 'One dancer performing one song is $150. One dancer performing two songs is $200. A 30 minute show with 4 dancers (2 songs each) is $800. If you hire two or more dancers, they can perform an opening dance at no additional charge.',
+  },
+  {
+    q: 'How do I book a performance?',
+    a: `The fastest way to book is by text: send a message to ${SMS_NUMBER_DISPLAY} with your event date and the performer you would like. You can also call ${PHONE_DISPLAY} or use the booking form on our Book Now page.`,
+  },
+  {
+    q: 'Where do performances take place?',
+    a: 'Every performance happens at the location of your choice in Las Vegas — private parties, corporate events, bachelorette parties, birthdays, and more.',
+  },
+  {
+    q: 'How long is a performance?',
+    a: 'A one-song performance runs 3-5 minutes, a two-song performance runs 8-10 minutes, and our four-dancer show runs a full 30 minutes.',
+  },
+  {
+    q: 'Is burlesque the same as stripping?',
+    a: 'No. With burlesque, the aim is to tease and insinuate nudity without exposing it all. In a two-song performance the first song will have top, the second song will not. Burlesque is about storytelling, comedy, sensuality, and anticipation — see our What Is Burlesque? page for the full story.',
+  },
+  {
+    q: 'Do the dancers accept tips?',
+    a: 'Yes — dancers accept tips, and it is customary to have small bills to throw during the performance.',
+  },
+  {
+    q: 'Do you have male performers?',
+    a: 'Yes! Our Boylesque roster features male burlesque performers Jonny and Urtreen, both highly requested for bachelorette parties.',
+  },
+  {
+    q: 'Can the dancers perform with props?',
+    a: 'Our dancers can perform on various props such as chairs, poles, and flow arts apparatuses.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE_URL}/faq#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+};
+---
+
+<PageLayout
+  title="FAQ | Burlesque To Go"
+  description="Frequently asked questions about booking Las Vegas burlesque dancers: pricing, performance length, tipping etiquette, props, and how to book by text."
+  eyebrow="Good to know"
+  heading="Frequently Asked Questions"
+  schema={schema}
+>
+  <section class="container">
+    <div class="faq-list">
+      {faqs.map((f) => (
+        <details class="faq deco-frame">
+          <summary><h2>{f.q}</h2></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <div class="cta">
+      <p>Still have a question?</p>
+      <Button href={SMS_HREF} variant="primary" size="lg">Text {SMS_NUMBER_DISPLAY}</Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .container {
+    padding-block: var(--space-8) 0;
+    max-width: 800px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .faq {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-6);
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  details[open] summary::after {
+    content: '–';
+  }
+
+  summary h2 {
+    font-family: var(--font-body);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    margin: 0;
+    text-shadow: none;
+  }
+
+  details p {
+    margin: var(--space-4) 0 0 0;
+    color: var(--color-text-muted);
+  }
+
+  .cta {
+    margin-top: var(--space-10);
+    text-align: center;
+  }
+
+  .cta p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+</style>

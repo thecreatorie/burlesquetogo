@@ -1,0 +1,10 @@
+/* Marquee flavor — Burlesque To Go (dark theatrical) */
+h1 { text-shadow: 0 0 24px color-mix(in oklab, var(--color-primary-deep, #d23780) 55%, transparent); }
+.eyebrow { color: var(--color-accent); letter-spacing: 0.22em; text-transform: uppercase; font-size: var(--fs-sm); }
+.btn--primary { box-shadow: 0 0 0 1px var(--color-primary), 0 0 18px color-mix(in oklab, var(--color-primary) 45%, transparent); }
+.btn--primary:hover { box-shadow: 0 0 0 1px var(--color-accent), 0 0 24px color-mix(in oklab, var(--color-accent) 55%, transparent); }
+.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.card:hover { border-color: var(--color-accent); }
+.deco-frame { border: 1px solid var(--color-accent); outline: 1px solid var(--color-border); outline-offset: 4px; }
+hr, .section-rule { border: 0; border-top: 1px solid var(--color-accent); opacity: .6; }
+img { border-radius: var(--radius-md); }

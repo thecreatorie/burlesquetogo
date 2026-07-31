@@ -1,0 +1,90 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import { dancers } from '../data/dancers';
+import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
+---
+
+<PageLayout
+  title="Our Dancers - About Us - Burlesque To Go - Book Now!"
+  description="Burlesque To Go offers a wide variety of Las Vegas Burlesque Dancers available for performances at your next event or party!"
+  eyebrow="About Us"
+  heading="About Burlesque To Go"
+  intro="Burlesque To Go offers a wide variety of Las Vegas Burlesque Dancers available for performances at your next event or party! Las Vegas burlesque dancers, on demand."
+>
+  <section class="container">
+    <SectionHeader
+      eyebrow="The Roster"
+      title="Our Dancers"
+      description="Every bio below is the performer's own story — tap a name to see their full profile and book them."
+    />
+    <div class="bio-list">
+      {dancers.map((d) => (
+        <article class="bio deco-frame">
+          <h3><a href={`/dancers/${d.slug}`}>{d.name}</a></h3>
+          {d.bio.map((p) => <p>{p}</p>)}
+          <p class="read-more"><a href={`/dancers/${d.slug}`}>Read more →</a></p>
+        </article>
+      ))}
+    </div>
+    <div class="cta">
+      <Button href={SMS_HREF} variant="primary" size="lg">Text to Book {SMS_NUMBER_DISPLAY}</Button>
+      <Button href="/dancers" variant="ghost" size="lg">Browse Dancers with Photos</Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .container {
+    padding-block: var(--space-4) 0;
+    max-width: 860px;
+  }
+
+  .bio-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .bio {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .bio h3 {
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .bio h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .bio h3 a:hover {
+    color: var(--color-primary);
+  }
+
+  .bio p {
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .read-more a {
+    color: var(--color-accent);
+    font-weight: var(--fw-semibold);
+    text-decoration: none;
+  }
+
+  .read-more a:hover {
+    text-decoration: underline;
+  }
+
+  .cta {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-10);
+  }
+</style>

@@ -1,0 +1,127 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { PRICING } from '../lib/site';
+---
+
+<PageLayout
+  title="What Is Burlesque? | Burlesque To Go"
+  description="What is burlesque? With burlesque, the aim is to tease and insinuate nudity without exposing it all. Learn how burlesque differs from stripping."
+  eyebrow="The art of the tease"
+  heading="What Is Burlesque?"
+>
+  <section class="container prose">
+    <p>
+      With burlesque, the aim is to tease and insinuate nudity, without exposing it all.
+      Burlesque dancing is not performed in seedy men’s clubs, but at all kinds of venues and
+      events with a variety of audiences. Burlesque can often be confused with stripping,
+      however the two are very different forms of dance. How so? Normally in a strip show
+      performance the end game is for the performer to reach their big reveal where they finally
+      remove all clothing by stripping down to being nude. A stripper will leave nothing to the
+      imagination. Where is the tease?
+    </p>
+    <p>
+      The word burlesque is derived from the Italian word “burlesco”, which, in turn is derived
+      from the word “burla” which translates to ‘joke’, or, used in this context ‘comedy’. This
+      is because burlesque is about storytelling and comedy as much as its about sensuality and
+      anticipation. Traditionally burlesque was a combination of comedy and provocativeness,
+      filled with female choruses, solo dancers, singing and slapstick comedy.
+    </p>
+    <p>
+      The genre has really evolved from its conception in the 17th century. In 2010 it was
+      bought into the spotlight due to the film starring Christina Aguilera and Cher. Since then
+      it has become an incredibly popular form of dance, both for performing and entertaining.
+    </p>
+    <p>
+      One of the best ways to learn more about burlesque is to watch it for yourself. Much like
+      other art forms, burlesque dance is unique to the performers, and each burlesque dancer
+      can have a different and varying style. Therefore, it is a good idea to look at a variety
+      of different performers.
+    </p>
+    <p>
+      Here at Burlesque To Go, we have what you are looking for. Beautiful talented ladies and
+      men (aka <a href="/dancers/boylesque">Boylesque</a>) that promise to tease and be the
+      cherry on top at your next event.
+    </p>
+  </section>
+
+  <section class="container">
+    <SectionHeader eyebrow="Our Prices" title="Performance Options" />
+    <div class="pricing-grid">
+      {PRICING.map((tier) => (
+        <div class="price-card deco-frame">
+          <p class="tier-dancers">{tier.dancers}</p>
+          <h3>{tier.name}</h3>
+          <p class="price">{tier.price}</p>
+          <ul>
+            {tier.details.map((d) => <li>{d}</li>)}
+          </ul>
+          <Button href="/book" variant="primary" fullWidth>Book Performance</Button>
+        </div>
+      ))}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .prose {
+    max-width: 70ch;
+    padding-block: var(--space-8);
+  }
+
+  .prose p {
+    font-size: var(--fs-lg);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .price-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+  }
+
+  .tier-dancers {
+    margin: 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-secondary);
+  }
+
+  .price-card h3 {
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .price {
+    font-family: var(--font-display);
+    font-size: var(--fs-4xl);
+    color: var(--color-accent);
+    margin: var(--space-2) 0;
+  }
+
+  .price-card ul {
+    padding-left: var(--space-5);
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    margin-bottom: var(--space-5);
+  }
+
+  .price-card li + li {
+    margin-top: var(--space-2);
+  }
+</style>

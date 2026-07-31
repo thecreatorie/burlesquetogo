@@ -1,0 +1,318 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { featuredDancers } from '../data/dancers';
+import {
+  SITE_URL,
+  TAGLINE,
+  SMS_HREF,
+  SMS_NUMBER_DISPLAY,
+  PHONE_HREF,
+  PHONE_DISPLAY,
+  PRICING,
+  PRICING_NOTE,
+  ORGANIZATION_SCHEMA,
+  LOCAL_BUSINESS_SCHEMA,
+} from '../lib/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ORGANIZATION_SCHEMA,
+    LOCAL_BUSINESS_SCHEMA,
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Burlesque To Go',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Burlesque Dancers Delivered To You In Las Vegas - Burlesque To Go"
+  description="Spice up your next event with a performance by Burlesque Dancers from Burlesque To Go! We have beautiful ladies that will be the cherry on top at your event."
+  schema={schema}
+>
+  <!-- Static marquee hero (replaces the old Slider Revolution slider) -->
+  <section class="marquee-hero">
+    <div class="container">
+      <p class="eyebrow">{TAGLINE}</p>
+      <h1>Burlesque To Go</h1>
+      <p class="subtitle">
+        Beautiful, talented burlesque entertainers delivered to your party, event, or
+        celebration — anywhere in Las Vegas.
+      </p>
+      <div class="ctas">
+        <Button href={SMS_HREF} variant="primary" size="lg">Text to Book {SMS_NUMBER_DISPLAY}</Button>
+        <Button href="/book" variant="ghost" size="lg">Book a Performance</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is Burlesque? -->
+  <section class="container">
+    <SectionHeader
+      eyebrow="The art of the tease"
+      title="What is Burlesque?"
+    />
+    <div class="what-is deco-frame">
+      <p>
+        With burlesque, the aim is to tease and insinuate nudity, without exposing it all.
+        Burlesque is not performed in seedy men’s clubs, but at all kinds of venues and events
+        with a variety of audiences. Burlesque can often be confused with stripping, however the
+        two are very different forms of dance. How so? Continue reading to find out!
+      </p>
+      <div class="ctas">
+        <Button href="/book" variant="primary">Book A Performance</Button>
+        <Button href="/what-is-burlesque" variant="ghost">Learn More</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="container">
+    <SectionHeader
+      eyebrow="Our Prices"
+      title="Performance Options"
+      description="Every performance happens at the location of your choice."
+    />
+    <div class="pricing-grid">
+      {PRICING.map((tier) => (
+        <div class="price-card deco-frame">
+          <p class="tier-dancers">{tier.dancers}</p>
+          <h3>{tier.name}</h3>
+          <p class="price">{tier.price}</p>
+          <ul>
+            {tier.details.map((d) => <li>{d}</li>)}
+          </ul>
+          <Button href="/book" variant="primary" fullWidth>Book Now</Button>
+        </div>
+      ))}
+    </div>
+    <p class="pricing-note">{PRICING_NOTE}</p>
+  </section>
+
+  <!-- Featured dancers -->
+  <section class="container">
+    <SectionHeader
+      eyebrow="Meet Our Dancers"
+      title="The stars of the show"
+      description="Pole champions, Cirque du Soleil alumni, aerialists, and headliners from the Las Vegas strip."
+    />
+    <div class="dancer-grid">
+      {featuredDancers.map((d) => (
+        <a href={`/dancers/${d.slug}`} class="dancer-card">
+          <Image
+            src={d.image}
+            alt={d.imageAlt}
+            widths={[320, 480, 640]}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            loading="lazy"
+          />
+          <h3>{d.name}</h3>
+          <p>{d.oneLiner}</p>
+        </a>
+      ))}
+    </div>
+    <div class="center">
+      <Button href="/dancers" variant="ghost" size="lg">See the Full Roster</Button>
+    </div>
+  </section>
+
+  <!-- Booking CTA -->
+  <section class="container">
+    <div class="booking-cta deco-frame">
+      <h2>Need more information? Ready to Book?</h2>
+      <p>Contact us! The fastest way to book is by text.</p>
+      <div class="ctas">
+        <Button href={SMS_HREF} variant="primary" size="lg">Text {SMS_NUMBER_DISPLAY}</Button>
+        <Button href={PHONE_HREF} variant="secondary" size="lg">Call {PHONE_DISPLAY}</Button>
+        <Button href="/book" variant="ghost" size="lg">Send A Message</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .marquee-hero {
+    padding-block: calc(var(--space-section) * 1.5);
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 50% -20%, color-mix(in oklab, var(--color-primary-deep) 28%, transparent), transparent 60%),
+      radial-gradient(ellipse at 85% 110%, color-mix(in oklab, var(--color-secondary) 18%, transparent), transparent 55%),
+      var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .marquee-hero h1 {
+    font-size: clamp(2.75rem, 2rem + 5vw, 5.5rem);
+    margin: var(--space-3) 0;
+  }
+
+  .marquee-hero .subtitle {
+    max-width: 55ch;
+    margin-inline: auto;
+    font-size: var(--fs-lg);
+    color: var(--color-text-muted);
+  }
+
+  .ctas {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+
+  .marquee-hero .ctas,
+  .booking-cta .ctas {
+    justify-content: center;
+  }
+
+  .what-is {
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    max-width: 70ch;
+  }
+
+  .what-is p {
+    font-size: var(--fs-lg);
+    margin: 0;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .price-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+  }
+
+  .tier-dancers {
+    margin: 0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-secondary);
+  }
+
+  .price-card h3 {
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .price {
+    font-family: var(--font-display);
+    font-size: var(--fs-4xl);
+    color: var(--color-accent);
+    margin: var(--space-2) 0;
+  }
+
+  .price-card ul {
+    padding-left: var(--space-5);
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    margin-bottom: var(--space-5);
+  }
+
+  .price-card li + li {
+    margin-top: var(--space-2);
+  }
+
+  .pricing-note {
+    margin-top: var(--space-6);
+    max-width: 70ch;
+    color: var(--color-text-muted);
+  }
+
+  .dancer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .dancer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .dancer-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .dancer-card {
+    display: block;
+    text-decoration: none;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+  }
+
+  .dancer-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .dancer-card :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 0;
+  }
+
+  .dancer-card h3 {
+    margin: var(--space-4) var(--space-5) 0;
+  }
+
+  .dancer-card p {
+    margin: var(--space-2) var(--space-5) var(--space-5);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .center {
+    text-align: center;
+    margin-top: var(--space-8);
+  }
+
+  .booking-cta {
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+  }
+
+  .booking-cta h2 {
+    margin: 0;
+  }
+
+  .booking-cta p {
+    color: var(--color-text-muted);
+    margin: var(--space-3) 0 0 0;
+  }
+</style>

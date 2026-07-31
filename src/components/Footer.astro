@@ -1,0 +1,137 @@
+---
+import {
+  SMS_HREF,
+  SMS_NUMBER_DISPLAY,
+  PHONE_HREF,
+  PHONE_DISPLAY,
+  INSTAGRAM_URL,
+  INSTAGRAM_HANDLE,
+  TAGLINE,
+} from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <a href="/" class="logo">Burlesque To Go</a>
+        <p class="tagline">{TAGLINE}</p>
+        <ul class="contact">
+          <li><a href={SMS_HREF}>Text to book: {SMS_NUMBER_DISPLAY}</a></li>
+          <li><a href={PHONE_HREF}>Call: {PHONE_DISPLAY}</a></li>
+          <li><a href={INSTAGRAM_URL} rel="noopener noreferrer" target="_blank">Instagram {INSTAGRAM_HANDLE}</a></li>
+        </ul>
+      </div>
+      <nav aria-label="Footer">
+        <h2>Site</h2>
+        <ul>
+          <li><a href="/dancers">Dancers</a></li>
+          <li><a href="/what-is-burlesque">What Is Burlesque?</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/book">Book Now</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Legal and friends">
+        <h2>More</h2>
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="https://polefitnessstudio.com" rel="noopener noreferrer" target="_blank">Pole Fitness Studio</a></li>
+          <li><a href="https://officiallyfawnia.com" rel="noopener noreferrer" target="_blank">Officially Fawnia</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="copyright">
+      © {year} Burlesque To Go. All rights reserved. ·
+      <a href="https://thecreatorie.com" rel="noopener noreferrer" target="_blank">Site by TheCreatorie</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-12) var(--space-6);
+    margin-top: var(--space-section);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .tagline {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    max-width: 40ch;
+  }
+
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  h2 {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: var(--color-primary);
+  }
+
+  .copyright {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .copyright a {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+  }
+</style>

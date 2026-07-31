@@ -1,0 +1,18 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
+---
+
+<PageLayout
+  title="Thanks | Burlesque To Go"
+  description="Your booking request was received. We'll be in touch soon."
+  eyebrow="Thanks"
+  heading="Message received"
+  intro="We'll get back to you with availability soon. In a hurry? Text us and we'll reply even faster."
+  noindex
+>
+  <section class="container">
+    <p><a href={SMS_HREF}>Text {SMS_NUMBER_DISPLAY}</a></p>
+    <p><a href="/">← Back to home</a></p>
+  </section>
+</PageLayout>

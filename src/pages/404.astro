@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found | Burlesque To Go"
+  description="The page you were looking for doesn't exist."
+  noindex
+>
+  <section class="container not-found">
+    <p class="eyebrow">404</p>
+    <h1>This act left the stage</h1>
+    <p>
+      The page you're looking for may have moved, been renamed, or — if you got here from
+      somewhere else — the link might be broken. The show goes on:
+    </p>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/dancers">Meet Our Dancers</a></li>
+      <li><a href="/what-is-burlesque">What Is Burlesque?</a></li>
+      <li><a href="/book">Book a Performance</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-section);
+    max-width: 60ch;
+  }
+  .eyebrow {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+  ul { padding-left: var(--space-5); }
+</style>

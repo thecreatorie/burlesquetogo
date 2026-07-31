@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import { dancers, personSchema } from '../../data/dancers';
+import {
+  SITE_URL,
+  SMS_HREF,
+  SMS_NUMBER_DISPLAY,
+  PHONE_HREF,
+  PHONE_DISPLAY,
+} from '../../lib/site';
+
+export function getStaticPaths() {
+  return dancers.map((dancer) => ({
+    params: { slug: dancer.slug },
+    props: { dancer },
+  }));
+}
+
+const { dancer } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  ...personSchema(dancer, SITE_URL),
+};
+---
+
+<BaseLayout title={dancer.title} description={dancer.metaDescription} schema={schema}>
+  <article class="container profile">
+    <div class="media deco-frame">
+      <Image
+        src={dancer.image}
+        alt={dancer.imageAlt}
+        widths={[480, 768, 1024]}
+        sizes="(min-width: 900px) 45vw, 100vw"
+        loading="eager"
+      />
+    </div>
+    <div class="copy">
+      <p class="eyebrow">{dancer.group === 'boylesque' ? 'Boylesque' : 'Dancers'}</p>
+      <h1>{dancer.name}</h1>
+      {dancer.bio.map((p) => <p class="bio">{p}</p>)}
+      <div class="ctas">
+        <Button href={SMS_HREF} variant="primary" size="lg">Book Performer</Button>
+        <Button href={PHONE_HREF} variant="secondary">Call {PHONE_DISPLAY}</Button>
+      </div>
+      <p class="hint">
+        Text {SMS_NUMBER_DISPLAY} with {dancer.name}’s name and your event date, or
+        <a href="/book">send a message</a>.
+      </p>
+      <p class="back"><a href="/dancers">← Back to all dancers</a></p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: start;
+    padding-block: var(--space-section);
+  }
+
+  @media (min-width: 900px) {
+    .profile {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    }
+  }
+
+  .media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .media :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  h1 {
+    margin: var(--space-2) 0 var(--space-5) 0;
+  }
+
+  .bio {
+    font-size: var(--fs-lg);
+    color: var(--color-text-muted);
+  }
+
+  .ctas {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+
+  .hint {
+    margin-top: var(--space-4);
+    font-size: var(--fs-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .back {
+    margin-top: var(--space-8);
+  }
+
+  .back a,
+  .hint a {
+    color: var(--color-accent);
+  }
+</style>

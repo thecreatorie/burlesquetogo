@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import type { Dancer } from '../data/dancers';
+
+export interface Props {
+  dancer: Dancer;
+  loading?: 'lazy' | 'eager';
+}
+
+const { dancer, loading = 'lazy' } = Astro.props;
+---
+
+<a href={`/dancers/${dancer.slug}`} class="dancer-card">
+  <Image
+    src={dancer.image}
+    alt={dancer.imageAlt}
+    widths={[320, 480, 640]}
+    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+    loading={loading}
+  />
+  <h3>{dancer.name}</h3>
+  <p>{dancer.oneLiner}</p>
+  <span class="more">Meet {dancer.name} →</span>
+</a>
+
+<style>
+  .dancer-card {
+    display: block;
+    text-decoration: none;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+  }
+
+  .dancer-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .dancer-card :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 0;
+  }
+
+  h3 {
+    margin: var(--space-4) var(--space-5) 0;
+  }
+
+  p {
+    margin: var(--space-2) var(--space-5) 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .more {
+    display: inline-block;
+    margin: var(--space-3) var(--space-5) var(--space-5);
+    color: var(--color-accent);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+  }
+</style>

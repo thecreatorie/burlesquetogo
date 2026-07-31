@@ -1,0 +1,110 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/Button.astro';
+import ContactForm from '../components/ContactForm.astro';
+import {
+  SMS_HREF,
+  SMS_NUMBER_DISPLAY,
+  PHONE_HREF,
+  PHONE_DISPLAY,
+} from '../lib/site';
+---
+
+<PageLayout
+  title="Book a Burlesque Performance | Burlesque To Go"
+  description="Book Las Vegas burlesque dancers for your event. Text (702) 205-1440 to book instantly, call 1-800-218-2020, or send a message with your event details."
+  eyebrow="Book Performance"
+  heading="Book a Performance"
+  intro="Need more information? Ready to book? Contact us! The fastest way to book is by text — tell us your event date and which performer you'd like."
+>
+  <section class="container">
+    <div class="quick-book">
+      <div class="quick-card deco-frame">
+        <h2>Text us — fastest</h2>
+        <p>One tap opens a message ready to send.</p>
+        <Button href={SMS_HREF} variant="primary" size="lg" fullWidth>
+          Text {SMS_NUMBER_DISPLAY}
+        </Button>
+      </div>
+      <div class="quick-card deco-frame">
+        <h2>Prefer to talk?</h2>
+        <p>Give us a call and we'll plan your event together.</p>
+        <Button href={PHONE_HREF} variant="secondary" size="lg" fullWidth>
+          Call {PHONE_DISPLAY}
+        </Button>
+      </div>
+    </div>
+
+    <div class="form-wrap">
+      <h2>Send A Message</h2>
+      <p class="form-intro">
+        Tell us about your event and we'll get back to you with availability.
+      </p>
+      <!-- TODO: Formspree form ID — replace REPLACE_ME with the real Formspree endpoint ID before launch. -->
+      <ContactForm
+        action="https://formspree.io/f/REPLACE_ME"
+        subject="New booking inquiry — burlesquetogo.com"
+        submitLabel="Send Booking Request"
+        fields={[
+          { name: 'name', label: 'Name', type: 'text', required: true, autocomplete: 'name' },
+          { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
+          { name: 'event_date', label: 'Event date', type: 'text', required: true, placeholder: 'MM/DD/YYYY' },
+          { name: 'event_type', label: 'Event type', type: 'text', placeholder: 'Bachelorette party, birthday, corporate event…' },
+          { name: 'performers', label: 'Number of performers', type: 'text', placeholder: '1, 2, or a 4-dancer show' },
+          { name: 'message', label: 'Message', type: 'textarea', required: true, placeholder: 'Venue or address, preferred dancers, questions…' },
+        ]}
+      />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .container {
+    padding-block: var(--space-8) 0;
+    max-width: 860px;
+  }
+
+  .quick-book {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .quick-book {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .quick-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quick-card h2 {
+    margin: 0;
+    font-size: var(--fs-2xl);
+  }
+
+  .quick-card p {
+    color: var(--color-text-muted);
+    margin: var(--space-2) 0 var(--space-5) 0;
+    flex-grow: 1;
+  }
+
+  .form-wrap {
+    margin-top: var(--space-12);
+  }
+
+  .form-wrap h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .form-intro {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+</style>

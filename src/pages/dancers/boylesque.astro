@@ -1,0 +1,71 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import DancerCard from '../../components/DancerCard.astro';
+import Button from '../../components/Button.astro';
+import { boylesque } from '../../data/dancers';
+import { SITE_URL, SMS_HREF, SMS_NUMBER_DISPLAY } from '../../lib/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/dancers/boylesque#collection`,
+  name: 'Boylesque',
+  url: `${SITE_URL}/dancers/boylesque`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: boylesque.map((d, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: d.name,
+      url: `${SITE_URL}/dancers/${d.slug}`,
+    })),
+  },
+};
+---
+
+<PageLayout
+  title="Boylesque | Burlesque To Go"
+  description="Boylesque: male burlesque performers in Las Vegas. Book Jonny or Urtreen for bachelorette parties, birthdays and events with Burlesque To Go."
+  eyebrow="Boylesque"
+  heading="Male Burlesque Performers"
+  intro="Beautiful talented men that promise to tease and be the cherry on top at your next event. Perfect for bachelorette parties, birthdays, and girls' nights."
+  schema={schema}
+>
+  <section class="container">
+    <div class="dancer-grid">
+      {boylesque.map((d, i) => (
+        <DancerCard dancer={d} loading={i === 0 ? 'eager' : 'lazy'} />
+      ))}
+    </div>
+    <div class="cta">
+      <Button href={SMS_HREF} variant="primary" size="lg">Text to Book {SMS_NUMBER_DISPLAY}</Button>
+      <Button href="/dancers" variant="ghost" size="lg">See All Dancers</Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .container {
+    padding-block: var(--space-8) 0;
+  }
+
+  .dancer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    max-width: 760px;
+  }
+
+  @media (min-width: 640px) {
+    .dancer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .cta {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-8);
+  }
+</style>
