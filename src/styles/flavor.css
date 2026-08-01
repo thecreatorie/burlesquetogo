@@ -10,7 +10,7 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 h2, h3 { font-family: var(--font-subheads); letter-spacing: 0.05em; color: var(--color-gold-light); font-weight: 600; }
-.eyebrow { color: var(--color-pink-soft); letter-spacing: 0.32em; text-transform: uppercase; font-size: var(--fs-sm); font-family: var(--font-body); font-weight: 600; }
+.eyebrow { color: var(--color-crimson-soft); letter-spacing: 0.32em; text-transform: uppercase; font-size: var(--fs-sm); font-family: var(--font-body); font-weight: 600; }
 ::selection { background: #d4af37; color: #140d05; }
 
 /* Ornamental deco divider: — ◆ — */

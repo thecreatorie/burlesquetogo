@@ -145,17 +145,31 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY, smsBookHref } from '../lib/site';
     }
   }
 
+  /* Fitted frame: consistent box per card; mixed-ratio photos letterbox
+     elegantly on the velvet surface inside the gold frame — nothing crops. */
+  .portrait .photo-frame {
+    display: grid;
+    place-items: center;
+    height: 420px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  @media (min-width: 900px) {
+    .portrait .photo-frame {
+      height: 520px;
+    }
+  }
+
   .portrait :global(img) {
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    object-position: top;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
 
   .monogram {
-    aspect-ratio: 3 / 4;
     display: grid;
     place-items: center;
     background: var(--color-bg);
@@ -183,7 +197,7 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY, smsBookHref } from '../lib/site';
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
     letter-spacing: 0.32em;
-    color: var(--color-pink-soft);
+    color: var(--color-crimson-soft);
   }
 
   .details h2 {
@@ -220,9 +234,9 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY, smsBookHref } from '../lib/site';
   }
 
   .full-profile:hover {
-    color: var(--color-pink-soft);
+    color: var(--color-crimson-soft);
     text-decoration: underline;
-    text-decoration-color: var(--color-pink);
+    text-decoration-color: var(--color-crimson);
   }
 
   /* CTA band */
@@ -231,7 +245,7 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY, smsBookHref } from '../lib/site';
     padding-block: var(--space-20);
     text-align: center;
     background:
-      radial-gradient(ellipse at 50% 120%, rgb(210 55 128 / 0.12), transparent 60%),
+      radial-gradient(ellipse at 50% 120%, rgb(122 16 36 / 0.2), transparent 60%),
       var(--color-surface);
     border-top: 1px solid var(--color-primary);
     border-bottom: 1px solid var(--color-border);
