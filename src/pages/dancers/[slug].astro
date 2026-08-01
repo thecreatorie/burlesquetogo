@@ -81,6 +81,16 @@ const schema = {
     height: auto;
   }
 
+  /* Mobile: portrait stacks first (it is first in the DOM) inside a set 4/5
+     box; mixed-ratio photos letterbox on the velvet frame surface — no crop. */
+  @media (max-width: 899px) {
+    .media :global(img) {
+      aspect-ratio: 4 / 5;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
   h1 {
     margin: var(--space-2) 0 var(--space-5) 0;
   }

@@ -59,14 +59,17 @@ const isCurrent = (href: string) =>
   }
 
   .drawer {
-    /* Full-screen fixed panel; sits beneath the sticky header (z 50) so the
-       translucent header bar stays visible while the panel itself is opaque. */
+    /* HARDENED: literal opaque velvet black (no var indirection), no
+       backdrop-filter, full-viewport coverage. Sits at z 60 below the
+       header (z 70) so the hamburger stays visible and clickable. */
     position: fixed;
     inset: 0;
-    /* FULLY OPAQUE velvet-black panel — never color-mix/backdrop-filter translucency. */
-    background: var(--color-bg);
+    background: #0b0806;
+    background-clip: padding-box;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     padding: calc(72px + var(--space-4)) var(--space-5) var(--space-8);
-    z-index: 40;
+    z-index: 60;
     overflow-y: auto;
   }
 

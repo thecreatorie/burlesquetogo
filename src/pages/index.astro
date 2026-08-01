@@ -157,6 +157,44 @@ const schema = {
     );
   }
 
+  /* MOBILE: image-first stacked hero. The 1.5-ratio reclining stage shot gets a
+     1:1 crop (keeps face + torso; 4/5 would cut the horizontal pose), subject
+     framed at 30% from the left, gradient fading into velvet; copy below on
+     solid velvet black. Desktop keeps the cinematic full-bleed. */
+  @media (max-width: 767px) {
+    .hero-photo {
+      display: block;
+      min-height: 0;
+    }
+
+    .hero-photo :global(img.bg) {
+      position: static;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: 30% center;
+    }
+
+    /* Scrim shrinks to cover only the image box (same top-anchored square) */
+    .hero-photo .scrim {
+      inset: 0 0 auto 0;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(180deg, transparent 55%, var(--color-bg) 100%);
+    }
+
+    .hero-photo .copy {
+      padding: var(--space-6) var(--space-4) var(--space-10);
+      max-width: none;
+    }
+
+    .hero-photo .copy h1 {
+      font-size: clamp(2.2rem, 11vw, 3rem);
+      overflow-wrap: break-word;
+    }
+  }
+
   .hero-photo .subtitle {
     max-width: 55ch;
     margin: var(--space-4) auto 0;
