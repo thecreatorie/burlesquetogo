@@ -147,6 +147,16 @@ const schema = {
 </BaseLayout>
 
 <style>
+  /* Plum-pink tint at the base of the hero scrim */
+  .hero-photo .scrim {
+    background: linear-gradient(
+      180deg,
+      rgb(11 8 6 / 0.55) 0%,
+      rgb(11 8 6 / 0.35) 45%,
+      rgb(30 9 19 / 0.94) 100%
+    );
+  }
+
   .hero-photo .subtitle {
     max-width: 55ch;
     margin: var(--space-4) auto 0;
@@ -212,7 +222,7 @@ const schema = {
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
     letter-spacing: 0.24em;
-    color: var(--color-gold-light);
+    color: var(--color-pink-soft);
   }
 
   .tier-dancers {
@@ -284,10 +294,21 @@ const schema = {
   }
 
   .booking-cta {
+    position: relative;
     text-align: center;
     padding: var(--space-16) var(--space-6);
     background: var(--color-surface);
     border-radius: var(--radius-lg);
+  }
+
+  /* Thin pink inner line inside the gold deco frame */
+  .booking-cta::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgb(210 55 128 / 0.4);
+    border-radius: calc(var(--radius-lg) - 4px);
+    pointer-events: none;
   }
 
   .booking-cta h2 {

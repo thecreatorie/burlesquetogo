@@ -5,10 +5,10 @@ import Button from '../../components/Button.astro';
 import { dancers, personSchema } from '../../data/dancers';
 import {
   SITE_URL,
-  SMS_HREF,
   SMS_NUMBER_DISPLAY,
   PHONE_HREF,
   PHONE_DISPLAY,
+  smsBookHref,
 } from '../../lib/site';
 
 export function getStaticPaths() {
@@ -44,12 +44,12 @@ const schema = {
       {dancer.bio.map((p) => <p class="bio">{p}</p>)}
       <div class="deco-divider"><span>◆</span></div>
       <div class="ctas">
-        <Button href={SMS_HREF} variant="primary" size="lg">Book {dancer.name}</Button>
+        <Button href={smsBookHref(dancer.name)} variant="primary" size="lg">Book {dancer.name}</Button>
         <Button href={PHONE_HREF} variant="secondary">Call {PHONE_DISPLAY}</Button>
       </div>
       <p class="hint">
-        Text {SMS_NUMBER_DISPLAY} with {dancer.name}’s name and your event date, or
-        <a href="/book">send a message</a>.
+        One tap opens a text to {SMS_NUMBER_DISPLAY} with {dancer.name}’s name already filled
+        in — just add your event date. Or <a href="/book">send a message</a>.
       </p>
       <p class="back"><a href="/dancers">← Back to all dancers</a></p>
     </div>
@@ -119,6 +119,7 @@ const schema = {
 
   .back a:hover,
   .hint a:hover {
-    color: var(--color-gold-light);
+    color: var(--color-pink-soft);
+    text-decoration-color: var(--color-pink);
   }
 </style>

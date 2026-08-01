@@ -1,9 +1,18 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import { dancers } from '../data/dancers';
 import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
+
+const bySlug = (slug: string) => dancers.find((d) => d.slug === slug)!;
+
+// Side gallery (portrait shots) beside the bios.
+const sideGallery = [bySlug('margarita'), bySlug('holly-weed'), bySlug('urtreen')];
+
+// Bottom strip (landscape shots).
+const photoStrip = [bySlug('fawnia'), bySlug('jade'), bySlug('nyrita')];
 ---
 
 <PageLayout
@@ -19,15 +28,47 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
       title="Our Dancers"
       description="Every bio below is the performer's own story — tap a name to see their full profile and book them."
     />
-    <div class="bio-list">
-      {dancers.map((d) => (
-        <article class="bio deco-frame">
-          <h3><a href={`/dancers/${d.slug}`}>{d.name}</a></h3>
-          {d.bio.map((p) => <p>{p}</p>)}
-          <p class="read-more"><a href={`/dancers/${d.slug}`}>Read more →</a></p>
-        </article>
+    <div class="roster-layout">
+      <div class="bio-list">
+        {dancers.map((d) => (
+          <article class="bio deco-frame">
+            <h3><a href={`/dancers/${d.slug}`}>{d.name}</a></h3>
+            {d.bio.map((p) => <p>{p}</p>)}
+            <p class="read-more"><a href={`/dancers/${d.slug}`}>Read more →</a></p>
+          </article>
+        ))}
+      </div>
+      <aside class="side-gallery" aria-label="Performer photos">
+        {sideGallery.map((d) => (
+          <a href={`/dancers/${d.slug}`} class="photo-frame side-photo">
+            <Image
+              src={d.image}
+              alt={d.imageAlt}
+              widths={[320, 480, 640]}
+              sizes="(min-width: 900px) 30vw, 50vw"
+              loading="lazy"
+            />
+          </a>
+        ))}
+      </aside>
+    </div>
+
+    <div class="deco-divider"><span>◆</span></div>
+
+    <div class="photo-strip">
+      {photoStrip.map((d) => (
+        <a href={`/dancers/${d.slug}`} class="photo-frame strip-photo">
+          <Image
+            src={d.image}
+            alt={d.imageAlt}
+            widths={[400, 640, 900]}
+            sizes="(min-width: 768px) 33vw, 100vw"
+            loading="lazy"
+          />
+        </a>
       ))}
     </div>
+
     <div class="cta">
       <Button href={SMS_HREF} variant="primary" size="lg">Text to Book {SMS_NUMBER_DISPLAY}</Button>
       <Button href="/dancers" variant="ghost" size="lg">Browse Dancers with Photos</Button>
@@ -38,7 +79,20 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
 <style>
   .container {
     padding-block: var(--space-4) 0;
-    max-width: 860px;
+    max-width: 1100px;
+  }
+
+  .roster-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .roster-layout {
+      grid-template-columns: minmax(0, 13fr) minmax(0, 7fr);
+    }
   }
 
   .bio-list {
@@ -78,13 +132,71 @@ import { SMS_HREF, SMS_NUMBER_DISPLAY } from '../lib/site';
   }
 
   .read-more a:hover {
+    color: var(--color-pink-soft);
     text-decoration: underline;
+    text-decoration-color: var(--color-pink);
+  }
+
+  .side-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .side-gallery {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      position: sticky;
+      top: 88px;
+    }
+  }
+
+  .side-photo {
+    display: block;
+  }
+
+  .side-photo :global(img),
+  .strip-photo :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .side-photo :global(img) {
+    aspect-ratio: 3 / 4;
+    object-position: top;
+  }
+
+  .photo-strip {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .photo-strip {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .strip-photo :global(img) {
+    aspect-ratio: 3 / 2;
+  }
+
+  .side-photo:hover,
+  .strip-photo:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 12px 40px rgb(0 0 0 / 0.55), 0 0 28px rgb(212 175 55 / 0.2);
   }
 
   .cta {
     display: flex;
     gap: var(--space-3);
     flex-wrap: wrap;
+    justify-content: center;
     margin-top: var(--space-10);
   }
 </style>

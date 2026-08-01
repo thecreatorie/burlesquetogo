@@ -8,8 +8,14 @@ export const SMS_NUMBER_DISPLAY = '(702) 205-1440';
 export const SMS_HREF =
   'sms:7022051440?&body=I%20would%20like%20to%20book%20a%20burlesque%20entertainer';
 
-export const PHONE_DISPLAY = '1-800-218-2020';
-export const PHONE_HREF = 'tel:+18002182020';
+// Single business number sitewide (the old 1-800 was a theme-demo artifact).
+export const PHONE_DISPLAY = '(702) 205-1440';
+export const PHONE_HREF = 'tel:+17022051440';
+
+/** SMS deep link prefilled with a specific dancer's name. */
+export function smsBookHref(name: string): string {
+  return `sms:7022051440?&body=${encodeURIComponent(`I would like to book ${name} for my event`)}`;
+}
 
 export const INSTAGRAM_URL = 'https://instagram.com/burlesquetogo';
 export const INSTAGRAM_HANDLE = '@burlesquetogo';
@@ -66,7 +72,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
   description:
     'Las Vegas burlesque dancers on demand — book talented burlesque entertainers for parties, corporate events, and special occasions.',
   url: SITE_URL,
-  telephone: '+1-800-218-2020',
+  telephone: '+1-702-205-1440',
   priceRange: '$150 - $800',
   address: {
     '@type': 'PostalAddress',

@@ -20,6 +20,8 @@
   --color-primary-deep: #d23780;
 
   --color-gold-light: #f6e27a;
+  --color-pink: #d23780;        /* brand pink — large/bold text & decor only */
+  --color-pink-soft: #e06aa8;   /* AA-safe pink for small text on the dark bg */
   --color-gold-deep: #a3742c;
   --gradient-gold: linear-gradient(120deg, #f6e27a 0%, #d4af37 45%, #a3742c 100%);
   --font-subheads: 'Cinzel', serif;
