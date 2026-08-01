@@ -28,21 +28,23 @@ const schema = {
 
 <BaseLayout title={dancer.title} description={dancer.metaDescription} schema={schema}>
   <article class="container profile">
-    <div class="media deco-frame">
+    <div class="media photo-frame">
       <Image
         src={dancer.image}
         alt={dancer.imageAlt}
         widths={[480, 768, 1024]}
-        sizes="(min-width: 900px) 45vw, 100vw"
+        sizes="(min-width: 900px) 40vw, 100vw"
         loading="eager"
+        fetchpriority="high"
       />
     </div>
     <div class="copy">
       <p class="eyebrow">{dancer.group === 'boylesque' ? 'Boylesque' : 'Dancers'}</p>
       <h1>{dancer.name}</h1>
       {dancer.bio.map((p) => <p class="bio">{p}</p>)}
+      <div class="deco-divider"><span>◆</span></div>
       <div class="ctas">
-        <Button href={SMS_HREF} variant="primary" size="lg">Book Performer</Button>
+        <Button href={SMS_HREF} variant="primary" size="lg">Book {dancer.name}</Button>
         <Button href={PHONE_HREF} variant="secondary">Call {PHONE_DISPLAY}</Button>
       </div>
       <p class="hint">
@@ -65,20 +67,18 @@ const schema = {
 
   @media (min-width: 900px) {
     .profile {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     }
   }
 
   .media {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    align-self: start;
   }
 
   .media :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius-lg);
   }
 
   h1 {
@@ -88,6 +88,11 @@ const schema = {
   .bio {
     font-size: var(--fs-lg);
     color: var(--color-text-muted);
+  }
+
+  .profile .deco-divider {
+    margin-block: var(--space-8) var(--space-2);
+    max-width: 420px;
   }
 
   .ctas {
@@ -109,6 +114,11 @@ const schema = {
 
   .back a,
   .hint a {
-    color: var(--color-accent);
+    color: var(--color-primary);
+  }
+
+  .back a:hover,
+  .hint a:hover {
+    color: var(--color-gold-light);
   }
 </style>

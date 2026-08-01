@@ -3,21 +3,26 @@
 
 :root {
   /* Brand */
-  --color-primary: #dd549b;
-  --color-primary-contrast: #16090f;
-  --color-secondary: #128783;
-  --color-accent: #f2b134;
+  --color-primary: #d4af37;
+  --color-primary-contrast: #140d05;
+  --color-secondary: #7a1f3d;
+  --color-accent: #d23780;
 
   /* Neutral */
-  --color-bg: #120a0e;
-  --color-surface: #1e1218;
-  --color-border: #3a2530;
-  --color-text: #f7edf1;
-  --color-text-muted: #dcc3ce;
-  --color-text-subtle: #b391a0;
+  --color-bg: #0b0806;
+  --color-surface: #171009;
+  --color-border: #3a2c17;
+  --color-text: #f4ecd9;
+  --color-text-muted: #cdbb96;
+  --color-text-subtle: #a8946e;
 
   --color-accent-contrast: #16090f;
   --color-primary-deep: #d23780;
+
+  --color-gold-light: #f6e27a;
+  --color-gold-deep: #a3742c;
+  --gradient-gold: linear-gradient(120deg, #f6e27a 0%, #d4af37 45%, #a3742c 100%);
+  --font-subheads: 'Cinzel', serif;
 
   /* Semantic */
   --color-success: #15803d;
@@ -26,7 +31,7 @@
   --color-info:    #1d4ed8;
 
   /* Type */
-  --font-display: 'Limelight', 'Montserrat', cursive;
+  --font-display: 'Cinzel Decorative', 'Cinzel', serif;
   --font-body:    'Montserrat', system-ui, sans-serif;
   --font-mono:    ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
 
@@ -72,8 +77,8 @@
 
   /* Radii */
   --radius-sm:   4px;
-  --radius-md:   10px;
-  --radius-lg:   18px;
+  --radius-md:   6px;
+  --radius-lg:   12px;
   --radius-xl:   24px;
   --radius-full: 9999px;
 

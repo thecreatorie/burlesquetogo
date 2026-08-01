@@ -74,8 +74,14 @@ const year = new Date().getFullYear();
   .logo {
     font-family: var(--font-display);
     font-size: var(--fs-xl);
-    color: var(--color-text);
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.06em;
     text-decoration: none;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--color-primary);
+    -webkit-text-fill-color: transparent;
   }
 
   .tagline {

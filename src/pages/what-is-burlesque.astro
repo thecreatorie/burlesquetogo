@@ -50,7 +50,7 @@ import { PRICING } from '../lib/site';
     <SectionHeader eyebrow="Our Prices" title="Performance Options" />
     <div class="pricing-grid">
       {PRICING.map((tier) => (
-        <div class="price-card deco-frame">
+        <div class="card price-card">
           <p class="tier-dancers">{tier.dancers}</p>
           <h3>{tier.name}</h3>
           <p class="price">{tier.price}</p>
@@ -89,8 +89,8 @@ import { PRICING } from '../lib/site';
   .price-card {
     display: flex;
     flex-direction: column;
-    padding: var(--space-6);
-    background: var(--color-surface);
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
     border-radius: var(--radius-lg);
   }
 
@@ -99,8 +99,8 @@ import { PRICING } from '../lib/site';
     font-size: var(--fs-sm);
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-secondary);
+    letter-spacing: 0.18em;
+    color: var(--color-text-subtle);
   }
 
   .price-card h3 {
@@ -110,15 +110,22 @@ import { PRICING } from '../lib/site';
   .price {
     font-family: var(--font-display);
     font-size: var(--fs-4xl);
-    color: var(--color-accent);
-    margin: var(--space-2) 0;
+    font-weight: var(--fw-bold);
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--color-primary);
+    -webkit-text-fill-color: transparent;
+    margin: var(--space-3) 0;
   }
 
   .price-card ul {
-    padding-left: var(--space-5);
+    list-style: none;
+    padding: 0;
     color: var(--color-text-muted);
     flex-grow: 1;
-    margin-bottom: var(--space-5);
+    margin: 0 0 var(--space-6) 0;
+    font-size: var(--fs-sm);
   }
 
   .price-card li + li {

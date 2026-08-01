@@ -36,9 +36,14 @@ import MobileNav from './MobileNav.astro';
 
   .logo {
     text-decoration: none;
-    color: var(--color-text);
     font-family: var(--font-display);
     font-size: var(--fs-lg);
-    font-weight: var(--fw-semibold);
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.06em;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--color-primary);
+    -webkit-text-fill-color: transparent;
   }
 </style>

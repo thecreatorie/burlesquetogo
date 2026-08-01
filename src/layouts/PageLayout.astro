@@ -29,6 +29,7 @@ const { title, description, eyebrow, heading, intro, schema, canonical, ogImage,
       <div class="container">
         {eyebrow && <p class="eyebrow">{eyebrow}</p>}
         <h1>{heading}</h1>
+        <div class="deco-divider hero-divider"><span>◆</span></div>
         {intro && <p class="intro">{intro}</p>}
       </div>
     </header>
@@ -49,8 +50,13 @@ const { title, description, eyebrow, heading, intro, schema, canonical, ogImage,
     font-size: var(--fs-sm);
     font-weight: var(--fw-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
+    letter-spacing: 0.32em;
+    color: var(--color-primary);
+  }
+
+  .hero-divider {
+    margin-block: var(--space-5);
+    max-width: 420px;
   }
 
   .intro {

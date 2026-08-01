@@ -54,9 +54,15 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       transition: border-color var(--duration-fast) var(--ease-out);
     }
 
+    .primary-nav a {
+      transition: border-color var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out);
+    }
+
     .primary-nav a:hover,
     .primary-nav a[aria-current='page'] {
-      border-bottom-color: var(--color-accent);
+      border-bottom-color: var(--color-primary);
+      color: var(--color-gold-light);
     }
 
     .primary-nav ul {
@@ -69,15 +75,21 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       justify-content: center;
       min-height: 44px;
       padding: var(--space-2) var(--space-5);
-      background: var(--color-primary);
+      background: var(--gradient-gold);
       color: var(--color-primary-contrast);
       font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: var(--fs-sm);
       border-radius: var(--radius-md);
       border-bottom: none;
+      box-shadow: 0 0 24px rgb(212 175 55 / 0.25);
     }
 
     .primary-nav a.book-now:hover {
-      background: color-mix(in oklab, var(--color-primary) 85%, white);
+      color: var(--color-primary-contrast);
+      filter: brightness(1.06);
+      box-shadow: 0 0 34px rgb(212 175 55 / 0.5);
     }
   }
 </style>

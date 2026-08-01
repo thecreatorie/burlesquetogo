@@ -40,6 +40,8 @@ const schema = {
     </div>
   </section>
 
+  <div class="container"><div class="deco-divider"><span>◆</span></div></div>
+
   <section class="container">
     <SectionHeader
       eyebrow="Boylesque"
@@ -69,7 +71,7 @@ const schema = {
   .dancer-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    gap: var(--space-12) var(--space-8);
   }
 
   @media (min-width: 640px) {
@@ -85,13 +87,17 @@ const schema = {
   }
 
   .group-link {
-    margin-top: var(--space-6);
+    margin-top: var(--space-8);
+    text-align: center;
   }
 
   .group-link a {
-    color: var(--color-accent);
+    color: var(--color-primary);
     font-weight: var(--fw-semibold);
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: var(--fs-sm);
   }
 
   .group-link a:hover {
