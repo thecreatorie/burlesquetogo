@@ -1,0 +1,14 @@
+{
+  "name": "Burlesque To Go",
+  "short_name": "Burlesque",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0b0806",
+  "background_color": "#0b0806",
+  "display": "browser"
+}
