@@ -1,125 +1,233 @@
 ---
-const items = [
-  { label: 'Home', href: '/' },
-  { label: 'Dancers', href: '/dancers' },
-  { label: 'What Is Burlesque?', href: '/what-is-burlesque' },
-  { label: 'FAQ', href: '/faq' },
-  { label: 'About', href: '/about' },
-  { label: 'Book Now', href: '/book' },
-];
+/* Mobile drawer — a full site menu, not a flat link list.
+   Sections mirror src/data/nav.ts so every page (including all 14 performer
+   profiles) plus the booking details are reachable from the phone menu. */
+import { NAV_GROUPS, PHONE_DISPLAY, PHONE_TEL, SMS_HREF, INSTAGRAM } from '../data/nav';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isCurrent = (href: string) =>
-  pathname === href || (href !== '/' && pathname.startsWith(href));
+const isCurrent = (href: string) => pathname === href.replace(/\/$/, '');
 ---
 
 <div class="mobile-nav-wrap">
-  <button id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Open menu">
+  <button
+    id="mobile-nav-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="mobile-nav-drawer"
+    aria-label="Open menu"
+  >
     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
     </svg>
   </button>
 
   <div id="mobile-nav-drawer" class="drawer" hidden>
-    <nav aria-label="Mobile primary">
-      <ul>
-        {items.map(item => (
-          <li>
-            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
-          </li>
-        ))}
-      </ul>
+    <nav aria-label="Site menu">
+      <a class={`quick-book${isCurrent('/book') ? ' is-current' : ''}`} href="/book">
+        Book a Performance
+      </a>
+      <a class={`home-link${pathname === '/' ? ' is-current' : ''}`} href="/">Home</a>
+
+      {NAV_GROUPS.map((group, gi) => (
+        <details class="nav-group" open={gi === 0 || group.links.some((l) => isCurrent(l.href))}>
+          <summary>
+            <span class="group-label">{group.label}</span>
+            {group.note && <span class="group-note">{group.note}</span>}
+            <span class="chev" aria-hidden="true"></span>
+          </summary>
+          <ul>
+            {group.links.map((link) => (
+              <li>
+                <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                  <span class="link-label">{link.label}</span>
+                  {link.note && <span class="link-note">{link.note}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
     </nav>
+
+    <div class="drawer-contact">
+      <p class="contact-head">Book direct — 24/7</p>
+      <a class="contact-line" href={SMS_HREF}>Text {PHONE_DISPLAY}</a>
+      <a class="contact-line" href={`tel:${PHONE_TEL}`}>Call {PHONE_DISPLAY}</a>
+      <a class="contact-line" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+        Instagram @burlesquetogo
+      </a>
+      <p class="contact-note">Las Vegas &amp; surrounding areas · Performances from $150</p>
+    </div>
   </div>
 </div>
 
 <style>
-  .mobile-nav-wrap button {
-    background: transparent;
-    border: none;
-    padding: var(--space-2);
-    cursor: pointer;
-    color: var(--color-text);
-    border-radius: var(--radius-md);
-    /* 44x44 minimum touch target */
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mobile-nav-wrap button:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-
+  .mobile-nav-wrap { display: block; }
   @media (min-width: 900px) {
     .mobile-nav-wrap { display: none; }
   }
 
+  #mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--color-gold-light, #f6e27a);
+    cursor: pointer;
+    line-height: 1;
+  }
+  #mobile-nav-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
   .drawer {
-    /* HARDENED: literal opaque velvet black (no var indirection), no
-       backdrop-filter, full-viewport coverage. Sits at z 60 below the
-       header (z 70) so the hamburger stays visible and clickable. */
     position: fixed;
     inset: 0;
     top: 0; left: 0; right: 0; bottom: 0;
     width: 100vw;
     height: 100vh;
     height: 100dvh;
+    /* Fully opaque panel — literal hex, no blur, no translucency. */
     background: #0b0806;
     background-clip: padding-box;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    padding: calc(72px + var(--space-4)) var(--space-5) var(--space-8);
     z-index: 60;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Clear the sticky site header, which stays above the drawer and holds
+       the toggle used to close it. */
+    padding: 84px 0 var(--space-10);
   }
-
   .drawer[hidden] { display: none; }
 
-  .drawer nav {
-    /* Subtle gold brand border marking the top of the menu panel */
-    border-top: 1px solid color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-    padding-top: var(--space-4);
-  }
 
-  .drawer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
+  nav { padding: var(--space-5) var(--space-5) 0; }
 
-  .drawer a {
+  .quick-book,
+  .home-link {
     display: flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 52px;
     padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .quick-book {
+    justify-content: center;
+    background: var(--gradient-gold, #d4af37);
+    color: #140d05;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+  .home-link {
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-5);
+  }
+  .home-link.is-current,
+  .quick-book.is-current { box-shadow: 0 0 0 2px var(--color-primary); }
+
+  .nav-group { border-top: 1px solid var(--color-border); }
+  .nav-group summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'label chev' 'note chev';
+    align-items: center;
+    column-gap: var(--space-3);
+    row-gap: 2px;
+    min-height: 56px;
+    padding: var(--space-3) 0;
+    cursor: pointer;
+    list-style: none;
+    color: var(--color-gold-light, #f6e27a);
+    font-family: var(--font-subheads, serif);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .nav-group summary::-webkit-details-marker { display: none; }
+  .nav-group summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .group-label { grid-area: label; }
+  .chev { grid-area: chev; align-self: center; }
+  .group-note {
+    grid-area: note;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--color-text-muted);
+  }
+  .chev {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 180ms ease;
+    flex: none;
+  }
+  .nav-group[open] .chev { transform: rotate(-135deg); }
+
+  .nav-group ul {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0 0 0 var(--space-2);
+    border-left: 2px solid color-mix(in oklab, var(--color-primary) 45%, transparent);
+  }
+  .nav-group li a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 44px;
+    justify-content: center;
+    padding: var(--space-2) var(--space-4);
     text-decoration: none;
     color: var(--color-text);
-    font-size: var(--fs-lg);
-    font-weight: var(--fw-medium);
-    border-radius: var(--radius-md);
-    border-left: 3px solid transparent;
+    border-radius: var(--radius-sm);
   }
-
-  .drawer a:hover {
-    background: var(--color-surface);
+  .nav-group li a:hover { background: color-mix(in oklab, var(--color-primary) 12%, transparent); }
+  .nav-group li a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+  .nav-group li a[aria-current='page'] {
+    background: color-mix(in oklab, var(--color-primary) 16%, transparent);
+    color: var(--color-gold-light, #f6e27a);
+    font-weight: 600;
   }
+  .link-label { font-size: 1rem; }
+  .link-note { font-size: 0.78rem; color: var(--color-text-muted); }
 
-  .drawer a:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: -2px;
+  .drawer-contact {
+    margin: var(--space-6) var(--space-5) 0;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
   }
-
-  .drawer a[aria-current='page'] {
-    color: var(--color-gold-light);
-    border-left-color: var(--color-primary);
-    background: var(--color-surface);
+  .contact-head {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-subheads, serif);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.78rem;
+    color: var(--color-accent-soft, #e04a63);
+  }
+  .contact-line {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    color: var(--color-gold-light, #f6e27a);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+  }
+  .contact-line:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .contact-note {
+    margin: var(--space-4) 0 0;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
   }
 </style>
 
@@ -131,34 +239,29 @@ const isCurrent = (href: string) =>
   if (drawer && drawer.parentElement !== document.body) document.body.appendChild(drawer);
 
   if (toggle && drawer) {
-    const setOpen = (open: boolean) => {
+    const setOpen = (open) => {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       if (open) {
         drawer.removeAttribute('hidden');
         document.body.style.overflow = 'hidden';
         const first = drawer.querySelector('a');
-        (first as HTMLElement | null)?.focus();
+        if (first) first.focus();
       } else {
         drawer.setAttribute('hidden', '');
         document.body.style.overflow = '';
+        toggle.focus();
       }
     };
 
     toggle.addEventListener('click', () => {
       setOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
-
-    // Close when a menu link is tapped
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
     drawer.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => setOpen(false));
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        setOpen(false);
-        toggle.focus();
-      }
     });
   }
 </script>
