@@ -68,7 +68,7 @@ export default defineConfig({
     '/team/fawnia': '/dancers/fawnia',
     '/team/holly-weed': '/dancers/holly-weed',
     '/team/infiniti': '/dancers/infiniti',
-    '/team/jade': '/dancers/jade',
+    '/team/jade': '/dancers',
     '/team/jonny': '/dancers/jonny',
     '/team/margarita': '/dancers/margarita',
     '/team/nyrita': '/dancers/nyrita',

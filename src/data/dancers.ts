@@ -6,7 +6,6 @@ import daniSteelImg from '../assets/dancers/dani-steel.jpg';
 import fawniaImg from '../assets/dancers/fawnia.jpg';
 import hollyWeedImg from '../assets/dancers/holly-weed.jpg';
 import infinitiImg from '../assets/dancers/infiniti.jpg';
-import jadeImg from '../assets/dancers/jade.jpg';
 import jonnyImg from '../assets/dancers/jonny.jpg';
 import margaritaImg from '../assets/dancers/margarita.jpg';
 import nyritaImg from '../assets/dancers/nyrita.jpg';
@@ -181,22 +180,6 @@ export const dancers: Dancer[] = [
     image: roseHolidayImg,
     imageAlt: 'Rosé Holiday, Las Vegas burlesque dancer',
     jobTitle: 'Burlesque Dancer',
-  },
-  {
-    slug: 'jade',
-    name: 'Jade',
-    title: 'Book Aerialist & Performer - Jade | Burlesque To Go',
-    metaDescription:
-      'Jade was a US Navy sailor for 5 years until she ran away with the circus. She specializes in aerial dance and tight wire walking. Book her for your event.',
-    oneLiner:
-      'Former US Navy sailor turned circus artist, specializing in aerial dance and tight wire walking.',
-    bio: [
-      'Jade was a US Navy sailor for 5 years until she left to run away with the circus. Since then, she has traveled the world performing at festivals, nightclubs and special events. Now she specializes in aerial dance and tight wire walking. She recently fell in love with burlesque and pole dancing as new forms of self-expression. Jade will make your next event shine!',
-    ],
-    group: 'dancers',
-    image: jadeImg,
-    imageAlt: 'Jade, aerialist and burlesque performer in Las Vegas',
-    jobTitle: 'Aerialist & Burlesque Performer',
   },
   {
     slug: 'sophie',
